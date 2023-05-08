@@ -168,6 +168,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        App\Repositories\RepositoryServiceProvider::class,
+        App\Helpers\HelperFacadesProvider::class,
     ])->toArray(),
 
     /*
@@ -183,6 +186,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'ApiResponse' => App\Helpers\Api\ApiResponseFacade::class,
     ])->toArray(),
 
 ];
