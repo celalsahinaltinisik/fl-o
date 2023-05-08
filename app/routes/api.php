@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
@@ -42,4 +43,12 @@ Route::group([
             'index',
         ]);
     });
+
+    Route::apiResource(
+        name: 'orders',
+        controller: OrderController::class
+    )->only([
+        'store',
+        'show',
+    ]);
 });
