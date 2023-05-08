@@ -22,4 +22,12 @@ class Product extends Model
         'price'         => 'double',
         'stock'         => 'integer',
     ];
+
+    /**
+     * Get the storages associated with the product.
+     */
+    public function storages()
+    {
+        return $this->belongsToMany(Storage::class, 'products_storages', 'product_id','storage_id')->withTimestamps();
+    }
 }
