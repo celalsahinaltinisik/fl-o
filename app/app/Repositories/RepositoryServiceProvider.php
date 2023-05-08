@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Repositories\Interfaces\Products\ProductRepositoryInterface;
 use App\Repositories\Interfaces\Users\UserRepositoryInterface;
+use App\Repositories\Services\Products\ProductRepository;
 use App\Repositories\Services\Users\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,6 +18,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
     }
 
     /**
@@ -38,6 +41,8 @@ class RepositoryServiceProvider extends ServiceProvider
         return [
             UserRepositoryInterface::class,
             UserRepository::class,
+            ProductRepository::class,
+            ProductRepositoryInterface::class,
         ];
     }
 }
