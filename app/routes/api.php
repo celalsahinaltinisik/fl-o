@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,15 @@ Route::group([
     )->only([
         'index',
     ]);
+
+    Route::group([
+        'middleware' => ['auth:sanctum'],
+    ], function () {
+        Route::apiResource(
+            name: 'products/{pageId}/{perPage}',
+            controller: ProductController::class
+        )->only([
+            'index',
+        ]);
+    });
 });
