@@ -1,0 +1,66 @@
+version: '3.5'
+services:
+  rabbit1:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit1"
+    container_name: rabbitmq
+    volumes:
+      - ./:/var/www:cached
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - csa-network
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./.docker/nginx.docker
+    volumes:
+      - ./:/var/www:cached
+    ports:
+      - 14280:80
+    networks:
+      - csa-network
+    links:
+      - php
+  php:
+    build:
+      context: ./
+      dockerfile: ./.docker/php.docker
+    volumes:
+      - ./:/var/www:cached
+    networks:
+      - csa-network
+    links:
+      - database
+      - rabbit1
+      - cache
+  database:
+    image: postgres:10.5
+    hostname: "postgres"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - '5438:5432'
+    networks:
+      - csa-network
+  cache:
+    image: redis:6
+    ports:
+      - 63079:6379
+    networks:
+      - csa-network
+networks:
+  csa-network:
+    external: false
+    name: csa-network
