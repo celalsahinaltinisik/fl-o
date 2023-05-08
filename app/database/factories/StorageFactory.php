@@ -18,8 +18,8 @@ class StorageFactory extends Factory
     {
         return [
             'name' => 'storage_test_' . fake()->name(),
-            'name' => 'daily_order_limit' . fake()->numberBetween(int1:200, int2:1000),
-            'name' => 'order_sort' . fake()->numberBetween(int1:1, int2:5),
+            'daily_order_limit' => fake()->numberBetween(int1:200, int2:1000),
+            'order_sort' => fake()->numberBetween(int1:1, int2:5),
         ];
     }
 }
