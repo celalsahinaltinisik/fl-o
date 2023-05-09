@@ -17,6 +17,7 @@ http://127.0.0.1:14280/api/v1
 * `docker-compose exec php php artisan test --testsuite=Feature`
 
 
+
 # Kullanım
 * Gereksinimleri lütfen indirin
 * Kurulum adımlarını eksiksiz ilerletin
@@ -35,6 +36,8 @@ http://127.0.0.1:14280/api/v1
 * Kuyruk işlemlerinin otomatik consume edilmesini tetiklemek için supervisor kullanılmaktadır. Supervisor .docker klasörü içerisindeki sprvsr.conf dosyasının image içerisindeki kopyasını çalıştırmaktadır.
 
 * Database şemasını görmek için db.png görselinden faydalanabilirsiniz.
+
+![Screenshot](db.png)
 
  # Users
 
