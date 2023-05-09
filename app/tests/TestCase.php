@@ -17,7 +17,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $products = Product::where('stock', '>', 20)->limit(10)->latest('created_at')->get(['id AS product_id', 'stock'])->toArray();
+        $products = Product::where('stock', '>', 20)->limit(10)->latest('created_at')->get(['id AS product_id', 'stock'])->groupBy('stock')->toArray();
         self::$payload = [
             'order' => $products
         ];

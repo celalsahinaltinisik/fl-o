@@ -11,10 +11,13 @@ class OrderTest extends TestCase
      */
     public function test_order_create()
     {
-        foreach (self::$payload['order'] as $key => $product) {
+        foreach (self::$payload['order'] as $key => $products) {
+            foreach ($products as $key => &$product) {
+                $product['stock'] = 1;
+            }
             $response = $this->post(
                 env('API_URL') . 'orders',
-                [$product],
+                $products,
                 ['Authorization' => "Bearer " . self::$token]
             );
             $response->assertStatus(201);
