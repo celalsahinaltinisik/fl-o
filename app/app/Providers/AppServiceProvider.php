@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Checks\HasStorage;
+use App\Checks\HasStorageInterface;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Builder as DatabaseEloquentBuilder;
 
@@ -12,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(HasStorageInterface::class, HasStorage::class);
     }
 
     /**
@@ -29,5 +31,18 @@ class AppServiceProvider extends ServiceProvider
             /** @var \Illuminate\Database\Eloquent\Builder $this */
             return $this->paginate($perPage, $columns, $pageName, $page);
         });
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            HasStorageInterface::class,
+            HasStorage::class,
+        ];
     }
 }
