@@ -3,6 +3,7 @@
 namespace App\Checks;
 
 use App\Abstracts\AbstractsProductHasStorage;
+use App\Repositories\Interfaces\Products\ProductRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 
@@ -13,7 +14,7 @@ class ProductHasStorage extends AbstractsProductHasStorage
      * @param ProductRepositoryInterface $productRepository
      * @return void
      */
-    public function hasStorage(array $request, $productRepository)
+    public function hasStorage(array $request, ProductRepositoryInterface $productRepository)
     {
         $productId = collect($request)->map(function ($product) {
             return $product['product_id'];

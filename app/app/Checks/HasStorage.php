@@ -2,6 +2,7 @@
 
 namespace App\Checks;
 
+use App\Repositories\Interfaces\Products\ProductRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
@@ -14,7 +15,7 @@ class HasStorage implements HasStorageInterface
      * @param ProductRepositoryInterface $productRepository
      * @return void
      */
-    public function hasStorage(array $request, $productRepository): mixed
+    public function hasStorage(array $request, ProductRepositoryInterface $productRepository): mixed
     {
         try {
             $hasStorage = new ProductHasStorage();

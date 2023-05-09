@@ -2,6 +2,8 @@
 
 namespace App\Abstracts;
 
+use App\Repositories\Interfaces\Products\ProductRepositoryInterface;
+
 abstract class AbstractsProductHasStorage
 {
     /**
@@ -9,5 +11,5 @@ abstract class AbstractsProductHasStorage
      * @param ProductRepositoryInterface $productRepository
      * @return void
      */
-    public abstract function hasStorage(array $request, $productRepository);
+    public abstract function hasStorage(array $request, ProductRepositoryInterface $productRepository);
 }
