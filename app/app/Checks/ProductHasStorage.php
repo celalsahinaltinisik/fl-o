@@ -14,7 +14,7 @@ class ProductHasStorage extends AbstractsProductHasStorage
      * @param ProductRepositoryInterface $productRepository
      * @return void
      */
-    public function hasStorage(array $request, ProductRepositoryInterface $productRepository)
+    public function hasStorage(array $request,  ProductRepositoryInterface $productRepository)
     {
         $productId = collect($request)->map(function ($product) {
             return $product['product_id'];
