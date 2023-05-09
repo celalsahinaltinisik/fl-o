@@ -47,8 +47,7 @@ Route::group([
             name: 'orders',
             controller: OrderController::class
         )->only([
-            'store',
-            'show',
+            'store'
         ]);
     });
 });
