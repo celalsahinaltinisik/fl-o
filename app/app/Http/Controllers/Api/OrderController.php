@@ -82,7 +82,8 @@ class OrderController extends Controller
             $orders['order'] = [
                 'number' => $orderNumber,
                 'user_id' => auth()->user()->id,
-                'total_price' => $orders['order_items']->sum('price')
+                'total_price' => $orders['order_items']->sum('price'),
+                'storages' => $productHasStorages,
             ];
             return $orders;
     }

@@ -3,6 +3,8 @@
 namespace App\Checks;
 
 use App\Abstracts\AbstractsProductHasStorage;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class ProductHasStorage extends AbstractsProductHasStorage
 {
@@ -22,6 +24,10 @@ class ProductHasStorage extends AbstractsProductHasStorage
         // ürünlerin depoları kendi içinde kontrol ediliyor.
         foreach ($products as $key => $value) {
            foreach ($value->storages->where('daily_order_limit', '>', 0)->sortBy('daily_order_limit')->reverse() as $key => $storage) {
+                // Depolara günlük sipariş limiti konulabilmektedir. Sipariş limit kontrol
+                if (Cache::get('storage_' . $storage->id . Carbon::now()->format("Y-m-d")) >= $storage->daily_order_limit) {
+                    continue;
+                }
                 $storages[$storage->id][] = $value->id;
            }
         }
@@ -41,6 +47,10 @@ class ProductHasStorage extends AbstractsProductHasStorage
             $storages = array();
             foreach ($products as $key => $value) {
                     $storage = $value->storages->where('daily_order_limit', '>', 0)->sortBy('order_sort')->first();
+                    // Depolara günlük sipariş limiti konulabilmektedir. Sipariş limit kontrol
+                    if (Cache::get('storage_' . $storage->id . Carbon::now()->format("Y-m-d")) >= $storage->daily_order_limit) {
+                        continue;
+                    }
                     $hasStorages[$value->id] = $storage->id;
             }
         }

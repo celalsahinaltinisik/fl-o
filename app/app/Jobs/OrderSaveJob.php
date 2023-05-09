@@ -3,12 +3,14 @@
 namespace App\Jobs;
 
 use App\Repositories\Interfaces\Orders\OrderRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -66,5 +68,10 @@ class OrderSaveJob implements ShouldQueue, ShouldBeUnique
             }
         }
         DB::commit();
+
+        // depoları günlük siparişleri sayılıyor
+        foreach (array_unique($this->collection['order']['storages']) as $key => $storageId) {
+            Cache::increment('storage_' . $storageId . Carbon::now()->format("Y-m-d"));
+        }
     }
 }
