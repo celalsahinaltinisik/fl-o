@@ -24,13 +24,13 @@ class ProductHasStorage extends AbstractsProductHasStorage
         // Sipariş oluşturulduğunda içerisindeki ürünler öncelikle tek bir depodan karşılanmalıdır.
         // ürünlerin depoları kendi içinde kontrol ediliyor.
         foreach ($products as $key => $value) {
-           foreach ($value->storages->where('daily_order_limit', '>', 0)->sortBy('daily_order_limit')->reverse() as $key => $storage) {
+            foreach ($value->storages->where('daily_order_limit', '>', 0)->sortBy('daily_order_limit')->reverse() as $key => $storage) {
                 // Depolara günlük sipariş limiti konulabilmektedir. Sipariş limit kontrol
                 if (Cache::get('storage_' . $storage->id . Carbon::now()->format("Y-m-d")) >= $storage->daily_order_limit) {
                     continue;
                 }
                 $storages[$storage->id][] = $value->id;
-           }
+            }
         }
         // eğer ürün toplam sayısı depodaki ürün toplam sayısı ile eşleşirse x depoyu ata
         $hasStorages = array();
@@ -47,17 +47,17 @@ class ProductHasStorage extends AbstractsProductHasStorage
         if (empty($hasStorages)) {
             $storages = array();
             foreach ($products as $key => $value) {
-                    $storage = $value->storages->where('daily_order_limit', '>', 0)->sortBy('order_sort')->first();
-                    // Depolara günlük sipariş limiti konulabilmektedir. Sipariş limit kontrol
-                    if (Cache::get('storage_' . $storage->id . Carbon::now()->format("Y-m-d")) >= $storage->daily_order_limit) {
-                        continue;
-                    }
-                    $hasStorages[$value->id] = $storage->id;
+                $storage = $value->storages->where('daily_order_limit', '>', 0)->sortBy('order_sort')->first();
+                // Depolara günlük sipariş limiti konulabilmektedir. Sipariş limit kontrol
+                if (Cache::get('storage_' . $storage->id . Carbon::now()->format("Y-m-d")) >= $storage->daily_order_limit) {
+                    continue;
+                }
+                $hasStorages[$value->id] = $storage->id;
             }
         }
 
         // TODO Ürünler için depo bulunmadıysa ne yapıalacak
-        // if (count($hasStorages) == $productId->count()) {
+        // if (count($hasStorages) != $productId->count()) {
         // }
 
 
