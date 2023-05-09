@@ -42,13 +42,13 @@ Route::group([
         )->only([
             'index',
         ]);
+        
+        Route::apiResource(
+            name: 'orders',
+            controller: OrderController::class
+        )->only([
+            'store',
+            'show',
+        ]);
     });
-
-    Route::apiResource(
-        name: 'orders',
-        controller: OrderController::class
-    )->only([
-        'store',
-        'show',
-    ]);
 });
