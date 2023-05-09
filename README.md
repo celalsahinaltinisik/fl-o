@@ -37,7 +37,8 @@ http://127.0.0.1:14280/api/v1
 
 * Database şemasını görmek için db.png görselinden faydalanabilirsiniz.
 
-![Screenshot](db.png)
+
+<img src='db.png' width='200'>
 
  # Users
 
