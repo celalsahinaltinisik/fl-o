@@ -26,6 +26,7 @@ http://127.0.0.1:14280/api/v1
 * Products servisimizden ürünlerimizi listeyebiliriz. Url kısmında sayfa ve limit bilgilerimizi belirtebiliriz. Standart 1 ve 20 değerleri mevcuttur.
 * Order servisimizde siparişimizi oluşturuken postman body json yapımıza bağlı kalarak ilerleyelim ve products servisinde listelediğimiz ürünlerden id değerlerini ve dilediğimiz stock miktarını girin.
 * Bunların dışında api feature test ile uygulamayı test edebilirsiniz "php artisan test --testsuite=Feature".
+* Database şemasını görmek için db.png görselinden faydalanabilirsiniz.
 
  # Users
 
