@@ -25,7 +25,15 @@ http://127.0.0.1:14280/api/v1
 * İlk olarak "user" servisi ile oluşturulan son test kullanıcısını çağıralım. Kullanıcı çağrıldığında otomatik olarak token bilgisi environment ortamınıza set edilecektir.
 * Products servisimizden ürünlerimizi listeyebiliriz. Url kısmında sayfa ve limit bilgilerimizi belirtebiliriz. Standart 1 ve 20 değerleri mevcuttur.
 * Order servisimizde siparişimizi oluşturuken postman body json yapımıza bağlı kalarak ilerleyelim ve products servisinde listelediğimiz ürünlerden id değerlerini ve dilediğimiz stock miktarını girin.
-* Bunların dışında api feature test ile uygulamayı test edebilirsiniz "php artisan test --testsuite=Feature".
+* Bunların dışında api feature test ile uygulamayı test edebilirsiniz. Sizin için bir ve birden fazla ürene sahip 10 adet sipariş oluşturucak. "php artisan test --testsuite=Feature".
+* Laravel seeder komutunu kullanarak factory sınıflarının yardımıyla test verileri otomatik olarak oluşturulacaktır. "docker-compose exec php php artisan db:seed"
+
+* Ürünlerin ilgili depolarının hesaplanması yada bulunması için abstrac bir sınıf tanımlandı. Bu sınıf daha sonrasında bir başka sınıfa extend edilip bir interface sahip sınıfa dahil edildi. OrderController sınıfı içersinde bu sınıf çağıralarak ilgili kurallara göre ürünlerin depoları ayarlandı.
+
+* Sipariş numarası api isteğinde doğrudan verilirken. Sipariş kaydı için kuyruklama işlemi rabbitmq çalışmaktadır.
+
+* Kuyruk işlemlerinin otomatik consume edilmesini tetiklemek için supervisor kullanılmaktadır. Supervisor .docker klasörü içerisindeki sprvsr.conf dosyasının image içerisindeki kopyasını çalıştırmaktadır.
+
 * Database şemasını görmek için db.png görselinden faydalanabilirsiniz.
 
  # Users
